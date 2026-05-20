@@ -1,0 +1,14 @@
+# Build output
+terraform-provider-iproute2
+dist/
+
+# Terraform
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.backup
+
+# Go
+*.exe
+*.test
+vendor/
