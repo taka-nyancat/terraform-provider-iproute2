@@ -38,7 +38,7 @@ func (r *bridgeResource) Create(ctx context.Context, req resource.CreateRequest,
 	}
 
 	err := runSSH(r.host, r.user, r.privateKey,
-		"ip link add "+plan.Name.ValueString()+" type bridge && ip link set "+plan.Name.ValueString()+" up")
+		"sudo ip link add "+plan.Name.ValueString()+" type bridge && ip link set "+plan.Name.ValueString()+" up")
 	if err != nil {
 		resp.Diagnostics.AddError("SSH error", err.Error())
 		return
@@ -55,7 +55,7 @@ func (r *bridgeResource) Read(ctx context.Context, req resource.ReadRequest, res
 		return
 	}
 	err := runSSH(r.host, r.user, r.privateKey, 
-		"ip link show "+state.Name.ValueString())
+		"sudo ip link show "+state.Name.ValueString())
 	if err != nil {
 		resp.State.RemoveResource(ctx)
 		return
@@ -75,7 +75,7 @@ func (r *bridgeResource) Delete(ctx context.Context, req resource.DeleteRequest,
         return
     }
     err := runSSH(r.host, r.user, r.privateKey,
-        "ip link del "+state.Name.ValueString())
+        "sudo ip link del "+state.Name.ValueString())
     if err != nil {
         resp.Diagnostics.AddError("SSH error", err.Error())
     }
