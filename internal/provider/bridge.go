@@ -38,7 +38,7 @@ func (r *bridgeResource) Create(ctx context.Context, req resource.CreateRequest,
 	}
 
 	err := runSSH(r.host, r.user, r.privateKey,
-		"sudo ip link add "+plan.Name.ValueString()+" type bridge && ip link set "+plan.Name.ValueString()+" up")
+		"sudo ip link add "+plan.Name.ValueString()+" type bridge && sudo ip link set "+plan.Name.ValueString()+" up")
 	if err != nil {
 		resp.Diagnostics.AddError("SSH error", err.Error())
 		return
